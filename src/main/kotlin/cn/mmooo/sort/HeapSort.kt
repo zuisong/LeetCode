@@ -30,10 +30,7 @@ private fun <T> Array<T>.swap(i1: Int, i2: Int) {
 fun <T : Comparable<T>> makeHeap(arr: Array<T>, index: Int, maxIndex: Int = arr.size - 1) {
 
     var it = index
-    while (true) {
-        if (it.left > maxIndex) {
-            break
-        }
+    while (it.left <= maxIndex) {
         val maxi = when {
             it.right > maxIndex -> it.left
             arr[it.left] >= arr[it.right] -> it.left

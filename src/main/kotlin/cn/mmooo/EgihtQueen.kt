@@ -1,5 +1,3 @@
-import cn.mmooo.tree.Node
-
 fun main(args: Array<String>) {
     val queenNumber = 8
     val emptyGrid = "+ "
