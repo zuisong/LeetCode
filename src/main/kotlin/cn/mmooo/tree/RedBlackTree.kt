@@ -12,11 +12,6 @@ fun main(args: Array<String>) {
     println(tree)
 }
 
-
-internal class RedBlackTree {
-
-}
-
 internal class Tree<E : Comparable<E>> {
 
     override fun toString(): String {
@@ -31,14 +26,14 @@ internal class Tree<E : Comparable<E>> {
             var n = rootNode
             while (true) {
                 if (n!!.value > element) {
-                    if (n!!.rght == null) {
+                    if (n.rght == null) {
                         n.rght = Node(element)
                         break
                     } else {
                         n = n.rght
                     }
                 } else {
-                    if (n!!.left == null) {
+                    if (n.left == null) {
                         n.left = Node(element)
                         break
                     } else {

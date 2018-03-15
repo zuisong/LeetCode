@@ -23,7 +23,7 @@ private class Solution {
             var j = i
             val tempValue = nums[i]
 
-            if (tempValue !== `val`) {
+            if (tempValue != `val`) {
                 count++
             }
             while (j > 0 && nums[j - 1] == `val`) {
