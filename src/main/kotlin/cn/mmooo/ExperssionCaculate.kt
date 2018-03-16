@@ -6,14 +6,14 @@ import java.util.*
  * 计算表达式的值，支持括号 + - / * ,按优先级运算  1+2*3 = 7 而不是9
  */
 fun main(args: Array<String>) {
-    val express = "1 + 2 * 3".split(" ")
+    val express = "1 + 2 * ( 3 + 1 )".split(" ")
     caculate(express).let {
         println("${express.joinToString(separator = "")}=$it")
     }
 }
 
 
-fun getInfixToSuffix(source: List<String>): Queue<String> {
+fun infixToSuffix(source: List<String>): Queue<String> {
     val map = mapOf("+" to 1, "-" to 1, "*" to 2, "/" to 2, "(" to 0)
     val stack = Stack<String>()
     val queue: Queue<String> = LinkedList<String>()
@@ -47,7 +47,7 @@ fun getInfixToSuffix(source: List<String>): Queue<String> {
 fun caculate(express: List<String>): Double {
 
 
-    val queue = getInfixToSuffix(express)
+    val queue = infixToSuffix(express)
 
 
     val stack = Stack<String>()
