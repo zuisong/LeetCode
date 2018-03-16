@@ -17,17 +17,17 @@ Given a puzzle board, return the least number of moves required so that the stat
  */
 fun main(args: Array<String>) {
     val board = arrayOf(
-            intArrayOf(0, 2, 3),
-            intArrayOf(1, 4, 5)
-//            intArrayOf(6, 8, 7)
+            intArrayOf(2, 0, 3),
+            intArrayOf(1, 4, 5),
+            intArrayOf(6, 7, 8)
     )
     Solution().slidingPuzzle(board, target = arrayOf(
             intArrayOf(1, 2, 3),
-            intArrayOf(4, 5, 0)
-//            intArrayOf(7, 8, 0)
+            intArrayOf(4, 5, 6),
+            intArrayOf(7, 8, 0)
     )).let {
-        println(" 变换路径: ${it.second}")
-        println(" 变换方向: ${it.third}")
+        println("变换路径: ${it.second}")
+        println("变换方向: ${it.third}")
         println("最少步数是 ${it.first}")
     }
 }
