@@ -7,13 +7,23 @@ fun main(args: Array<String>) {
 }
 
 
+/**
+ * 堆排序，见算法导论
+ * 利用最大堆顶部元素是整个堆最大元素的特点
+ * 先构造最大堆, 然后取出第一个元素, 用最后一个元素替换第一个元素，
+ * 对剩下的 n-1个数构建最大堆，直到所有的元素都被取完
+ */
 internal fun <T : Comparable<T>> heapSort(arr: Array<T>) {
+    // 构建最大堆
     ((arr.size - 1) / 2 downTo 0).forEach { i ->
         makeHeap(arr, i)
     }
 
-    (arr.size - 1 downTo 0).forEach {
+
+    // 取出第一个元素, 用最后一个元素替换第一个元素
+    (arr.size-1 downTo 0).forEach {
         arr.swap(0, it)
+        // 对剩下的 n-1个数构建最大堆，直到所有的元素都被取完
         makeHeap(arr, 0, it - 1)
     }
 }
