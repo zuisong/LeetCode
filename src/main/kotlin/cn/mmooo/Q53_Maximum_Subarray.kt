@@ -75,7 +75,10 @@ private class Solution {
         }
         var maxCrossMid = maxOfLeft + maxOfRight
 
-        return maxOf(maxSubArray2(nums, startIndex, mid - 1), maxSubArray2(nums, mid + 1, endIndex), maxCrossMid)
+        return maxOf(
+                maxSubArray2(nums, startIndex, mid - 1),
+                maxSubArray2(nums, mid + 1, endIndex),
+                maxCrossMid)
     }
 
 }
