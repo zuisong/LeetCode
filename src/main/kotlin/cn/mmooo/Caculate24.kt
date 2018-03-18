@@ -48,7 +48,9 @@ fun caculate24With4Num(num1: Int, num2: Int, num3: Int, num4: Int): String {
 
 fun String.doA() = this.toIntOrNull() ?: "($this)"
 
-
+/**
+ * 2个数四则运算后的结果情况
+ */
 fun cacu2(num1: Pair<Double, String>, num2: Pair<Double, String>): List<Pair<Double, String>> {
     val list = ArrayList<Pair<Double, String>>()
     list.add(Pair(num1.first + num2.first, "${num1.second.doA()} + ${num2.second.doA()}"))
@@ -60,6 +62,9 @@ fun cacu2(num1: Pair<Double, String>, num2: Pair<Double, String>): List<Pair<Dou
     return list
 }
 
+/**
+ * 3个数四则运算后的结果情况
+ */
 fun cacu3(num1: Pair<Double, String>, num2: Pair<Double, String>, num3: Pair<Double, String>): List<Pair<Double, String>> {
     val list = ArrayList<Pair<Double, String>>()
     cacu2(num1, num2).forEach {
@@ -73,7 +78,9 @@ fun cacu3(num1: Pair<Double, String>, num2: Pair<Double, String>, num3: Pair<Dou
     }
     return list
 }
-
+/**
+ * 3个数四则运算后的结果情况
+ */
 fun cacu4(num1: Pair<Double, String>, num2: Pair<Double, String>, num3: Pair<Double, String>, num4: Pair<Double, String>): List<Pair<Double, String>> {
     val list = ArrayList<Pair<Double, String>>()
     cacu3(num1, num2, num3).forEach {
@@ -95,12 +102,13 @@ fun cacu4(num1: Pair<Double, String>, num2: Pair<Double, String>, num3: Pair<Dou
     return list
 }
 
+
 /**
- *  递归解法
+ * 任意个数四则运算后的结果情况
+ *
+ * 用到了递归和保存中间结果的算法思想
  */
-
 val cacheHashMap = HashMap<String, List<Pair<Double, String>>>()
-
 fun cacuN(parameters: List<Pair<Double, String>>): List<Pair<Double, String>> {
     if (parameters.size <= 1)
         return parameters
