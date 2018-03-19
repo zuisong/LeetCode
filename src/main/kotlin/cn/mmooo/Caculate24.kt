@@ -2,18 +2,20 @@ package cn.mmooo
 
 import java.util.HashMap
 
+
 fun main(args: Array<String>) {
-    caculate24All(3, 4, 5, 6, 7, 22)
+    val ints = intArrayOf(3,3,8,8)
+    caculate24All(*ints)
             .let {
-                println("3, 4, 5, 6, 7 算24的解法有")
+                println("{${ints.joinToString()}} 算24的解法有")
                 println(it)
             }
-    println("==================")
-    caculate24With4Num(3, 4, 5, 6)
-            .let {
-                println("3, 4, 5, 6 算24的解法有")
-                println(it)
-            }
+//    println("==================")
+//    caculate24With4Num(3, 4, 5, 6)
+//            .let {
+//                println("3, 4, 5, 6 算24的解法有")
+//                println(it)
+//            }
 }
 
 /**
@@ -27,7 +29,9 @@ fun caculate24All(vararg args: Int): String {
 
     val list = cacuN(args.map { Pair(it.toDouble(), "$it") })
 
-    val result = list.filter { it.first == 24.toDouble() }.map { it.second }.distinct()
+    val result = list
+            .filter { Math.abs(it.first - 24) < 1e-8 }
+            .map { it.second }.distinct()
     return if (result.isEmpty()) "无解" else result.joinToString("\n")
 }
 
@@ -42,7 +46,7 @@ fun caculate24With4Num(num1: Int, num2: Int, num3: Int, num4: Int): String {
             Pair(num4.toDouble(), "$num4")
     )
 
-    val result = list.filter { it.first == 24.toDouble() }.map { it.second }.distinct()
+    val result = list.filter { Math.abs(it.first - 24) < 1e-8 }.map { it.second }.distinct()
     return if (result.isEmpty()) "无解" else result.joinToString("\n")
 }
 
@@ -57,15 +61,20 @@ fun cacu2(num1: Pair<Double, String>, num2: Pair<Double, String>): List<Pair<Dou
     list.add(Pair(num1.first - num2.first, "${num1.second.doA()} - ${num2.second.doA()}"))
     list.add(Pair(num2.first - num1.first, "${num2.second.doA()} - ${num1.second.doA()}"))
     list.add(Pair(num1.first * num2.first, "${num1.second.doA()} * ${num2.second.doA()}"))
-    list.add(Pair(num1.first / num2.first, "${num1.second.doA()} / ${num2.second.doA()}"))
-    list.add(Pair(num2.first / num1.first, "${num2.second.doA()} / ${num1.second.doA()}"))
+
+    if (num2.first != 0.0)
+        list.add(Pair(num1.first / num2.first, "${num1.second.doA()} / ${num2.second.doA()}"))
+    if (num1.first != 0.0)
+        list.add(Pair(num2.first / num1.first, "${num2.second.doA()} / ${num1.second.doA()}"))
     return list
 }
 
 /**
  * 3个数四则运算后的结果情况
  */
-fun cacu3(num1: Pair<Double, String>, num2: Pair<Double, String>, num3: Pair<Double, String>): List<Pair<Double, String>> {
+fun cacu3(num1: Pair<Double, String>,
+          num2: Pair<Double, String>,
+          num3: Pair<Double, String>): List<Pair<Double, String>> {
     val list = ArrayList<Pair<Double, String>>()
     cacu2(num1, num2).forEach {
         list.addAll(cacu2(num3, it))
@@ -78,10 +87,14 @@ fun cacu3(num1: Pair<Double, String>, num2: Pair<Double, String>, num3: Pair<Dou
     }
     return list
 }
+
 /**
  * 3个数四则运算后的结果情况
  */
-fun cacu4(num1: Pair<Double, String>, num2: Pair<Double, String>, num3: Pair<Double, String>, num4: Pair<Double, String>): List<Pair<Double, String>> {
+fun cacu4(num1: Pair<Double, String>,
+          num2: Pair<Double, String>,
+          num3: Pair<Double, String>,
+          num4: Pair<Double, String>): List<Pair<Double, String>> {
     val list = ArrayList<Pair<Double, String>>()
     cacu3(num1, num2, num3).forEach {
         list.addAll(cacu2(num4, it))
@@ -109,6 +122,7 @@ fun cacu4(num1: Pair<Double, String>, num2: Pair<Double, String>, num3: Pair<Dou
  * 用到了递归和保存中间结果的算法思想
  */
 val cacheHashMap = HashMap<String, List<Pair<Double, String>>>()
+
 fun cacuN(parameters: List<Pair<Double, String>>): List<Pair<Double, String>> {
     if (parameters.size <= 1)
         return parameters
