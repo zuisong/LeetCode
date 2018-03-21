@@ -4,7 +4,7 @@ import java.util.HashMap
 
 
 fun main(args: Array<String>) {
-    val ints = intArrayOf(3,3,8,8)
+    val ints = intArrayOf(10, 10, 4, 4)
     caculate24All(*ints)
             .let {
                 println("{${ints.joinToString()}} 算24的解法有")
@@ -31,7 +31,8 @@ fun caculate24All(vararg args: Int): String {
 
     val result = list
             .filter { Math.abs(it.first - 24) < 1e-8 }
-            .map { it.second }.distinct()
+            .map { it.second }
+            .distinct()
     return if (result.isEmpty()) "无解" else result.joinToString("\n")
 }
 
@@ -46,7 +47,10 @@ fun caculate24With4Num(num1: Int, num2: Int, num3: Int, num4: Int): String {
             Pair(num4.toDouble(), "$num4")
     )
 
-    val result = list.filter { Math.abs(it.first - 24) < 1e-8 }.map { it.second }.distinct()
+    val result = list
+            .filter { Math.abs(it.first - 24) < 1e-8 }
+            .map { it.second }
+            .distinct()
     return if (result.isEmpty()) "无解" else result.joinToString("\n")
 }
 
