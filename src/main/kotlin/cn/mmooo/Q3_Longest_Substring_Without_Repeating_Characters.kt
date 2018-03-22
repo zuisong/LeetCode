@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
         Solution().lengthOfLongestSubstring(
 
                 """
-                tmmzuxt
+                tmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwg
                  """.trimIndent()
         )
                 .let { println(it) }
@@ -31,18 +31,18 @@ class Solution {
     fun lengthOfLongestSubstring(str: String): Int {
 
 
-        // 暴力解法，通不过
-        /*
-        var result = 0
-        (0..str.lastIndex).forEach { s ->
-            (s..str.lastIndex).forEach { e ->
-                val s1 = str.substring(s..e)
-                if (s1.length > result && s1.length == s1.toCharArray().toSet().size) {
-                    result = s1.length
-                }
-            }
-        }
-        */
+//         暴力解法，通不过
+//
+//        var result = 0
+//        (0..str.lastIndex).forEach { s ->
+//            (s..str.lastIndex).forEach { e ->
+//                val s1 = str.substring(s..e)
+//                if (s1.length > result && s1.length == s1.toCharArray().toSet().size) {
+//                    result = s1.length
+//                }
+//            }
+//        }
+//        return  result
 
         var lastUniqIndex = 0
         var maxUniqSubStringSize = 0
@@ -50,7 +50,7 @@ class Solution {
         val map = HashMap<Char, Int>()
 
         str.forEachIndexed { index, c ->
-            if (c !in map.filterValues { it >= lastUniqIndex }) {
+            if (map[c] == null || map[c]!! < lastUniqIndex) {
                 map.put(c, index)
                 if (index - lastUniqIndex + 1 > maxUniqSubStringSize) {
                     maxUniqSubStringSize = index - lastUniqIndex + 1
