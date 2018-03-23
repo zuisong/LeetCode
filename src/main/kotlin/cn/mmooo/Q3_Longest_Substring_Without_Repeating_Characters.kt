@@ -51,7 +51,7 @@ class Solution {
 
         str.forEachIndexed { index, c ->
             if (map[c] == null || map[c]!! < lastUniqIndex) {
-                map.put(c, index)
+                map[c] = index
                 if (index - lastUniqIndex + 1 > maxUniqSubStringSize) {
                     maxUniqSubStringSize = index - lastUniqIndex + 1
                 }
