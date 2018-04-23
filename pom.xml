@@ -11,7 +11,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <kotlin.version>1.2.30</kotlin.version>
+        <kotlin.version>1.2.40</kotlin.version>
     </properties>
 
     <dependencies>
@@ -50,6 +50,8 @@
     </pluginRepositories>
 
     <build>
+            <sourceDirectory>src/main/kotlin</sourceDirectory>
+            <testSourceDirectory>src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
