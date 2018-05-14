@@ -13,6 +13,6 @@ fun main(args: Array<String>) {
 
 class Solution {
     fun majorityElement(nums: IntArray): Int {
-        return nums.toList().groupingBy { it }.eachCount().maxBy { it.value }.let { it!!.value }
+        return nums.toList().groupingBy { it }.eachCount().maxBy { it.value }.let { it!!.key }
     }
 }

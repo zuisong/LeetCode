@@ -1,4 +1,7 @@
-package cn.mmooo.adt
+package cn.mmooo.adt.impl
+
+import cn.mmooo.adt.Queue
+import cn.mmooo.adt.Stack
 
 
 class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyType>, Iterable<AnyType> {
@@ -32,7 +35,7 @@ class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyT
     private var head: Node<AnyType>
     private var tail: Node<AnyType>
 
-    fun makeEmpty() {
+    override fun makeEmpty() {
         head = Node()
         tail = Node()
         size = 0
@@ -86,7 +89,7 @@ class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyT
         return t!!
     }
 
-    fun isEmpty(): Boolean {
+    override fun isEmpty(): Boolean {
         return size() == 0
     }
 

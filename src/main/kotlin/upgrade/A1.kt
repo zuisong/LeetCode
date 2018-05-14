@@ -1,23 +1,13 @@
 package upgrade
 
+import kotlin.system.measureTimeMillis
+
 fun main(args: Array<String>) {
-    val b = localReturn(listOf(0, 1, 2, 3))
-    println(b)
-}
+    repeat(10) {
+        println(measureTimeMillis {
+            val repeated = ('a'..'z').joinToString(separator = "").repeat(1000 * 10000)
+            println(repeated.groupingBy { it }.eachCount())
+        } / 1000.0)
 
-fun localReturn(list: List<Int>): Boolean {
-    contains(0) {
-        list.forEach { i ->
-            println(i)
-            if (i == 0)
-                return true
-        }
-        false
     }
-    return false
-}
-
-inline fun <reified T> contains(item: T, f: (T) -> Boolean): Boolean {
-    println(T::class.java.name)
-    return f(item)
 }

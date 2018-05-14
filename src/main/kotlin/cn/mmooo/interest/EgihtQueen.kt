@@ -1,3 +1,5 @@
+package cn.mmooo.interest
+
 fun main(args: Array<String>) {
     val queenNumber = 8
     val emptyGrid = "+ "

@@ -1,4 +1,7 @@
-package cn.mmooo.adt;
+package cn.mmooo.adt.impl;
+
+import cn.mmooo.adt.Queue;
+import cn.mmooo.adt.Stack;
 
 import java.util.Iterator;
 
@@ -16,6 +19,7 @@ public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyTy
         tail.pre = head;
     }
 
+    @Override
     public void makeEmpty() {
         init();
     }
@@ -68,6 +72,7 @@ public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyTy
         return t;
     }
 
+    @Override
     public boolean isEmpty() {
         return size() == 0;
     }

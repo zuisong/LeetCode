@@ -17,17 +17,20 @@ fun main(args: Array<String>) {
 
 }
 
+private fun IntArray.swap(i: Int, j: Int) {
+    val tempValue = this[j]
+    this[j] = this[i]
+    this[i] = tempValue
+}
 
 class Solution {
     fun moveZeroes(nums: IntArray): Unit {
         (1 until nums.size).forEach { i ->
             var j = i
-            val tempValue = nums[i]
-            while (j > 0 && nums[j - 1] == 0) {
-                nums[j] = nums[j - 1]
+            while (j > 0 && nums[j] >= 0 && nums[j - 1] == 0) {
+                nums.swap(j, j - 1)
                 j--
             }
-            nums[j] = tempValue
         }
     }
 }

@@ -1,4 +1,4 @@
-package cn.mmooo
+package cn.mmooo.interest
 
 import java.util.HashMap
 

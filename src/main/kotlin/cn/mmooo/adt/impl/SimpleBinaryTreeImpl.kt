@@ -1,4 +1,6 @@
-package cn.mmooo.adt
+package cn.mmooo.adt.impl
+
+import cn.mmooo.adt.BinaryTree
 
 fun main(args: Array<String>) {
     val tree = SimpleBinaryTreeImpl<Int>()
