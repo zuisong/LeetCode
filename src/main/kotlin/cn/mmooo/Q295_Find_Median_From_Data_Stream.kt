@@ -50,11 +50,11 @@ class MedianFinder {
         }
 
         when {
-            minHeap.size() > maxHeap.size() + 1 -> {
+            minHeap.size > maxHeap.size + 1 -> {
                 val i = minHeap.removeTop()
                 maxHeap.insert(i)
             }
-            maxHeap.size() > minHeap.size() -> {
+            maxHeap.size > minHeap.size -> {
                 val i = maxHeap.removeTop()
                 minHeap.insert(i)
             }
@@ -64,7 +64,7 @@ class MedianFinder {
     }
 
     fun findMedian(): Double {
-        return if (minHeap.size() > maxHeap.size()) {
+        return if (minHeap.size > maxHeap.size) {
             minHeap.getTop().toDouble()
         } else {
             (maxHeap.getTopOr(0) + minHeap.getTopOr(0)) / 2.0

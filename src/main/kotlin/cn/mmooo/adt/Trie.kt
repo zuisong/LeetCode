@@ -8,34 +8,35 @@ Q208
 注意:
 你可以假设所有的输入都是由小写字母 a-z 构成的。
  */
-class Trie() {
-    class TrieNode(
+class Trie {
+    private class TrieNode(
             var isWord: Boolean = false,
             var map: HashMap<Char, TrieNode> = HashMap()
     )
 
-    val root: TrieNode = TrieNode()
+    private val root: TrieNode = TrieNode()
 
     /** Initialize your data structure here. */
 
 
     /** Inserts a word into the trie. */
     fun insert(word: String) {
+
+        fun insert(node: TrieNode, word: String) {
+            val trie = node.map[word.first()]
+            if (trie == null) {
+                val node1 = TrieNode(word.length == 1)
+                node.map[word.first()] = node1
+            } else {
+                trie.isWord = trie.isWord || word.length == 1
+            }
+            if (word.length > 1) {
+                insert(node.map[word.first()]!!, word.substring(1))
+            }
+        }
+
         if (word.isEmpty()) return
         insert(root, word)
-    }
-
-    private fun insert(node: TrieNode, word: String) {
-        val trie = node.map[word.first()]
-        if (trie == null) {
-            val node1 = TrieNode(word.length == 1)
-            node.map[word.first()] = node1
-        } else {
-            trie.isWord = trie.isWord || word.length == 1
-        }
-        if (word.length > 1) {
-            insert(node.map[word.first()]!!, word.substring(1))
-        }
     }
 
     /** Returns if the word is in the trie. */
@@ -72,13 +73,14 @@ class Trie() {
 
 fun main(args: Array<String>) {
     val trie = Trie()
-    trie.insert("abc")
-    trie.search("abc")
-    trie.search("ab")
-    trie.insert("ab")
-    trie.insert("ck")
-    trie.insert("ak")
-    println(trie.search("ckj"))
-    println(trie.startsWith("b"))
+    trie.insert("abc").let(::println)
+    trie.search("abc").let(::println)
+    trie.search("ab").let(::println)
+    trie.insert("ab").let(::println)
+    trie.search("ab").let(::println)
+    trie.insert("ck").let(::println)
+    trie.insert("ak").let(::println)
+    trie.search("ckj").let(::println)
+    trie.startsWith("b").let(::println)
 
 }

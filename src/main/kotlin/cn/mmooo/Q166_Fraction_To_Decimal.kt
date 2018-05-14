@@ -35,7 +35,7 @@ class Solution {
                 } else if (yushu == 0L) {
                     //   println("整除")
                     val builder = StringBuilder("$positive.")
-                    for ((k, v) in map) {
+                    for ((_, v) in map) {
                         builder.append(v)
                     }
                     result = builder.toString()

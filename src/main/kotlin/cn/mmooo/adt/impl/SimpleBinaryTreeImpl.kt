@@ -2,7 +2,6 @@ package cn.mmooo.adt.impl
 
 import cn.mmooo.adt.BinaryTree
 import cn.mmooo.adt.Queue
-import sun.font.GlyphLayout
 
 fun main(args: Array<String>) {
     val tree = SimpleBinaryTreeImpl<Int>()
@@ -63,6 +62,20 @@ class SimpleBinaryTreeImpl<E : Comparable<E>> : BinaryTree<E> {
     }
 
     override fun insert(ele: E) {
+        fun insert(e: E, node: BinaryNode<E>?): BinaryNode<E> {
+            if (node == null) {
+                return BinaryNode(e)
+            }
+            when {
+                e < node.ele -> node.left = insert(e, node.left)
+                e > node.ele -> node.right = insert(e, node.right)
+                else -> {
+                    // 处理已经存在的情况
+                }
+            }
+            return node
+        }
+
         root = insert(ele, root)
         currentSize++
     }
@@ -122,35 +135,17 @@ class SimpleBinaryTreeImpl<E : Comparable<E>> : BinaryTree<E> {
     }
 
 
-    private fun insert(ele: E, node: BinaryNode<E>?): BinaryNode<E> {
-        if (node == null) {
-            return BinaryNode(ele)
-        }
-
-        when {
-            ele < node.ele -> node.left = insert(ele, node.left)
-            ele > node.ele -> node.right = insert(ele, node.right)
-            else -> {
-                // 处理已经存在的情况
+    override operator fun contains(ele: E): Boolean {
+        fun contains(ele: E, node: BinaryNode<E>?): Boolean {
+            if (node == null) {
+                return false
+            }
+            return when {
+                ele > node.ele -> contains(ele, node.right)
+                ele < node.ele -> contains(ele, node.left)
+                else -> true
             }
         }
-        return node
-    }
-
-
-    private fun contains(ele: E, node: BinaryNode<E>?): Boolean {
-        if (node == null) {
-            return false
-        }
-        return when {
-            ele > node.ele -> contains(ele, node.right)
-            ele < node.ele -> contains(ele, node.left)
-            else -> true
-        }
-
-    }
-
-    override operator fun contains(ele: E): Boolean {
         return contains(ele, root)
     }
 
