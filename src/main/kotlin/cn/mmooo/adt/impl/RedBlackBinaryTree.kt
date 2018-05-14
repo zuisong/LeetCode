@@ -13,6 +13,16 @@ fun main(args: Array<String>) {
 }
 
 open class RedBlackBinaryTree<E : Comparable<E>> : BinaryTree<E> {
+    override val size: Int
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+    override fun containsAll(elements: Collection<E>): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun iterator(): Iterator<E> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private var root: BinaryNode<E>? = null
 
@@ -35,9 +45,13 @@ open class RedBlackBinaryTree<E : Comparable<E>> : BinaryTree<E> {
         // 1. 将红黑树当作一颗二叉查找树，将节点添加到二叉查找树中。
         while (x != null) {
             y = x
-            if (node.ele == x.ele) return // 原来就在树中
-            x = if (node.ele < x.ele) x.left else x.right
+            x = when {
+                node.ele > x.ele -> x.right
+                node.ele < x.ele -> x.left
+                else -> return
+            }
         }
+
 
         node.parent = y
         if (y != null) {
@@ -97,12 +111,7 @@ color[root[T]] ← BLACK
 
 
     override fun insert(ele: E) {
-        if (root == null) {
-            root = BinaryNode(ele, BLACK, parent = null)
-            return
-        }
-
-
+        insert(BinaryNode(ele))
     }
 
     override fun findMax(): E {
@@ -180,7 +189,7 @@ color[root[T]] ← BLACK
     private class BinaryNode<E : Comparable<E>>
     constructor(
             var ele: E,
-            var color: Boolean = BLACK,
+            var color: Boolean = RED,
             var parent: BinaryNode<E>? = null, // 父结点
             var left: BinaryNode<E>? = null,// 左节点
             var right: BinaryNode<E>? = null // 右节点
@@ -190,6 +199,5 @@ color[root[T]] ← BLACK
         const val BLACK = true
         const val RED = false
     }
-
 
 }

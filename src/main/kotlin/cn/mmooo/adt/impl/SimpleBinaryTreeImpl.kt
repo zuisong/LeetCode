@@ -1,6 +1,8 @@
 package cn.mmooo.adt.impl
 
 import cn.mmooo.adt.BinaryTree
+import cn.mmooo.adt.Queue
+import sun.font.GlyphLayout
 
 fun main(args: Array<String>) {
     val tree = SimpleBinaryTreeImpl<Int>()
@@ -16,6 +18,35 @@ fun main(args: Array<String>) {
 
 class SimpleBinaryTreeImpl<E : Comparable<E>> : BinaryTree<E> {
 
+    private var currentSize = 0
+
+    override val size: Int
+        get() = currentSize
+
+    override fun containsAll(elements: Collection<E>): Boolean =
+            elements.parallelStream().anyMatch(this::contains)
+
+    override fun iterator(): Iterator<E> = object : Iterator<E> {
+        private val queue: Queue<BinaryNode<E>>
+
+        init {
+            queue = QueueAndStack()
+            if (root != null) {
+                queue.push(root!!)
+            }
+        }
+
+        override fun hasNext(): Boolean = queue.isNotEmpty()
+
+        override fun next(): E {
+            val node = queue.poll()
+            if (node.left != null) queue.push(node.left!!)
+            if (node.right != null) queue.push(node.right!!)
+            return node.ele
+        }
+
+    }
+
     private var root: BinaryNode<E>? = null
 
     override fun isEmpty(): Boolean {
@@ -23,15 +54,17 @@ class SimpleBinaryTreeImpl<E : Comparable<E>> : BinaryTree<E> {
     }
 
     init {
-        root = null
+        makeEmpty()
     }
 
     override fun makeEmpty() {
         root = null
+        currentSize = 0
     }
 
     override fun insert(ele: E) {
         root = insert(ele, root)
+        currentSize++
     }
 
     override fun findMax(): E {
@@ -66,6 +99,7 @@ class SimpleBinaryTreeImpl<E : Comparable<E>> : BinaryTree<E> {
 
     override fun remove(x: E) {
         root = remove(x, root)
+        currentSize--
     }
 
     private fun remove(ele: E, node: BinaryNode<E>?): BinaryNode<E>? {

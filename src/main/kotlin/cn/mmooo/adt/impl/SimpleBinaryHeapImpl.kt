@@ -4,7 +4,16 @@ import cn.mmooo.adt.BinaryHeap
 import java.util.*
 
 
-class SimpleBinaryHeapImpl<E : Comparable<E>>(private val heapType: BinaryHeap.HeapType, initSize: Int = 10) : BinaryHeap<E>, Iterable<E> {
+class SimpleBinaryHeapImpl<E : Comparable<E>>(private val heapType: BinaryHeap.HeapType, initSize: Int = 10) : BinaryHeap<E> {
+    override val size: Int
+        get() = currentSize
+
+    override fun contains(element: E): Boolean =
+            this.stream().anyMatch { it == element }
+
+
+    override fun containsAll(elements: Collection<E>): Boolean = elements.parallelStream().allMatch(this::contains)
+
     override fun makeEmpty() {
         this.currentSize = 0
     }
@@ -107,9 +116,6 @@ class SimpleBinaryHeapImpl<E : Comparable<E>>(private val heapType: BinaryHeap.H
         }
     }
 
-    override fun size(): Int {
-        return currentSize
-    }
 
     private companion object {
 

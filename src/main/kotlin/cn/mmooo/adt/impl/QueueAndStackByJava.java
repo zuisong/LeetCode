@@ -2,7 +2,9 @@ package cn.mmooo.adt.impl;
 
 import cn.mmooo.adt.Queue;
 import cn.mmooo.adt.Stack;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyType>, Iterable<AnyType> {
@@ -57,10 +59,6 @@ public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyTy
         this.size++;
     }
 
-    @Override
-    public int size() {
-        return this.size;
-    }
 
     @Override
     public AnyType pop() {
@@ -106,6 +104,16 @@ public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyTy
                 return currentIterNode.ele;
             }
         };
+    }
+
+    @Override
+    public boolean containsAll(@NotNull Collection<?> c) {
+        return c.parallelStream().allMatch(this::contains);
+    }
+
+    @Override
+    public int getSize() {
+        return this.size;
     }
 
 

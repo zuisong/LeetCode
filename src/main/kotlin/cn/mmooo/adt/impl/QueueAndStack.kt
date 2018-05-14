@@ -4,7 +4,16 @@ import cn.mmooo.adt.Queue
 import cn.mmooo.adt.Stack
 
 
-class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyType>, Iterable<AnyType> {
+class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyType> {
+    override val size: Int
+        get() = this.currentSize
+
+    override fun contains(element: AnyType): Boolean = this.stream().anyMatch { it == element }
+
+
+    override fun containsAll(elements: Collection<AnyType>): Boolean =
+            elements.parallelStream().allMatch(this::contains)
+
     override fun peekFirst(): AnyType {
         checkSize()
         return head.next!!.ele!!
@@ -31,14 +40,14 @@ class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyT
         }
     }
 
-    private var size: Int = 0
+    private var currentSize: Int = 0
     private var head: Node<AnyType>
     private var tail: Node<AnyType>
 
     override fun makeEmpty() {
         head = Node()
         tail = Node()
-        size = 0
+        currentSize = 0
         head.next = tail
         tail.pre = head
     }
@@ -46,7 +55,7 @@ class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyT
     init {
         head = Node()
         tail = Node()
-        size = 0
+        currentSize = 0
         head.next = tail
         tail.pre = head
     }
@@ -63,7 +72,7 @@ class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyT
         val t = head.next!!.ele!!
         head.next!!.next!!.pre = head
         head.next = head.next!!.next
-        this.size--
+        this.currentSize--
         return t
     }
 
@@ -73,24 +82,21 @@ class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyT
         node.pre = tail.pre
         node.next = tail
         tail.pre = node
-        this.size++
+        this.currentSize++
     }
 
-    override fun size(): Int {
-        return this.size
-    }
 
     override fun pop(): AnyType {
         checkSize()
         val t = tail.pre!!.ele
         tail.pre!!.pre!!.next = tail
         tail.pre = tail.pre!!.pre
-        this.size--
+        this.currentSize--
         return t!!
     }
 
     override fun isEmpty(): Boolean {
-        return size() == 0
+        return size == 0
     }
 
     private class Node<T> {

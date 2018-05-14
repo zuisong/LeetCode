@@ -1,10 +1,8 @@
 package cn.mmooo.adt
 
-interface Stack<E> {
+interface Stack<E> : Collection<E> {
     fun peekLast(): E
     fun pop(): E
     fun push(e: E)
-    fun size(): Int
     fun makeEmpty()
-    fun isEmpty(): Boolean
 }
