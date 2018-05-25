@@ -1,23 +1,17 @@
 package cn.mmooo.q151
 
 import java.math.BigInteger
-import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
 
-    val num1 = "4565467646468465461354585527827825578272782872872343878"
-    val num2 = "54534875454348527278278752527827278287453484354843548"
+    val num1 = "4565467646468465461457828728928928253683354585527827825578272782872872343878"
+    val num2 = "5453487545434852727827875252782727865383863542363543563287453484354843548"
     val result = BigInteger(num1) * BigInteger(num2)
-    println(result)
-    repeat(10) {
-        measureTimeMillis {
-            val result1 = multiply(num1, num2)
-            assert(result1 == result.toString())
-        }.let {
-            println("耗时 $it ms")
-        }
-    }
+    val result1 = multiply(num1, num2) + "1"
     println("$num1 * $num2 = $result")
+    println("$num1 * $num2 = $result1")
+
+    assert(result1 == result.toString())
 
 }
 
@@ -42,14 +36,14 @@ fun multiply(num1: String, num2: String): String {
      * 对两个数组做加法
      * 例如:[1][2][3] + [8][9] = [2][1][2]
      */
-    val plusTwoIntArray = { num1: IntArray, num2: IntArray ->
-        num1.reverse()
-        num2.reverse()
+    val plusTwoIntArray = { ints1: IntArray, ints2: IntArray ->
+        ints1.reverse()
+        ints2.reverse()
         var jinwei = 0
         val result = IntArray(222, { -1 })
-        val maxIndex = Math.max(num1.indexOfLast { it > 0 }, num2.indexOfLast { it > 0 })
+        val maxIndex = Math.max(ints1.indexOfLast { it > 0 }, ints2.indexOfLast { it > 0 })
         (0..maxIndex).forEach {
-            val sum = num1.getOrElse(it) { 0 } + num2.getOrElse(it) { 0 } + jinwei
+            val sum = ints1.getOrElse(it) { 0 } + ints2.getOrElse(it) { 0 } + jinwei
             jinwei = sum.div(10)
             result[it] = sum.rem(10)
         }
@@ -80,8 +74,13 @@ fun multiply(num1: String, num2: String): String {
         sum
     }
 
-    return num1.reversed().mapIndexed { index, c ->
-        intArrayMutiInt(num2.plus("0".repeat(index)).map(Character::getNumericValue).toIntArray(), c.toString().toInt())
-    }.reduce(plusTwoIntArray).joinToString("")
+    return num1.reversed()
+            .mapIndexed { index, c ->
+                intArrayMutiInt(
+                        num2.plus("0".repeat(index))
+                                .map(Character::getNumericValue)
+                                .toIntArray(),
+                        c.toString().toInt())
+            }.reduce(plusTwoIntArray).joinToString("")
 }
 
