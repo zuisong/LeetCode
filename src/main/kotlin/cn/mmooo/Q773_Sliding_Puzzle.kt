@@ -21,7 +21,7 @@ fun main(args: Array<String>) {
             intArrayOf(1, 4, 5),
             intArrayOf(6, 7, 8)
     )
-    Solution().slidingPuzzle(board, target = arrayOf(
+    slidingPuzzle(board, target = arrayOf(
             intArrayOf(1, 2, 3),
             intArrayOf(4, 5, 6),
             intArrayOf(7, 8, 0)
@@ -33,102 +33,99 @@ fun main(args: Array<String>) {
 }
 
 
-private class Solution {
-
-    /**
-     * 在数组 [board] 中寻找0的位置，找不到就抛出异常[RuntimeException]
-     * @throws RuntimeException
-     */
-    fun positionOfZero(board: Array<IntArray>): Pair<Int, Int> {
-        board.forEachIndexed { indexX, ints ->
-            ints.forEachIndexed { indexY, i ->
-                if (i == 0) {
-                    return Pair(indexX, indexY)
-                }
+/**
+ * 在数组 [board] 中寻找0的位置，找不到就抛出异常[RuntimeException]
+ * @throws RuntimeException
+ */
+fun positionOfZero(board: Array<IntArray>): Pair<Int, Int> {
+    board.forEachIndexed { indexX, ints ->
+        ints.forEachIndexed { indexY, i ->
+            if (i == 0) {
+                return Pair(indexX, indexY)
             }
         }
-        throw RuntimeException("找不到0的位置")
     }
+    throw RuntimeException("找不到0的位置")
+}
 
-    /**
-     * 将[arr] 拷贝一份
-     */
-    fun copy(arr: Array<IntArray>): Array<IntArray> {
-        val res: Array<IntArray> = Array(arr.size, { IntArray(arr[0].size) })
-        arr.forEachIndexed { indexX, ints ->
-            ints.forEachIndexed { indexY, i ->
-                res[indexX][indexY] = i
-            }
+/**
+ * 将[arr] 拷贝一份
+ */
+fun copy(arr: Array<IntArray>): Array<IntArray> {
+    val res: Array<IntArray> = Array(arr.size, { IntArray(arr[0].size) })
+    arr.forEachIndexed { indexX, ints ->
+        ints.forEachIndexed { indexY, i ->
+            res[indexX][indexY] = i
         }
-        return res
     }
+    return res
+}
 
-    /**
-     *  hash [arr]
-     */
-    fun hash(arr: Array<IntArray>): String {
-        val buffer = StringBuffer()
-        arr.forEach { ints ->
-            ints.forEach {
-                buffer.append(it)
-            }
+/**
+ *  hash [arr]
+ */
+fun hash(arr: Array<IntArray>): String {
+    val buffer = StringBuffer()
+    arr.forEach { ints ->
+        ints.forEach {
+            buffer.append(it)
         }
-        return buffer.toString()
     }
+    return buffer.toString()
+}
 
-    fun slidingPuzzle(board: Array<IntArray>, target: Array<IntArray>): Triple<Int, String, String> {
-        val targetHash = hash(target)
+fun slidingPuzzle(board: Array<IntArray>, target: Array<IntArray>): Triple<Int, String, String> {
+    val targetHash = hash(target)
 
-        val xRange = 0..board.lastIndex
-        val yRange = 0..board.first().lastIndex
+    val xRange = 0..board.lastIndex
+    val yRange = 0..board.first().lastIndex
 
-        val directions = listOf(Pair(-1, 0), Pair(1, 0), Pair(0, -1), Pair(0, 1))
+    val directions = listOf(Pair(-1, 0), Pair(1, 0), Pair(0, -1), Pair(0, 1))
 
-        val queue = LinkedList<Array<IntArray>>()
-        val hashMap = HashMap<String, Pair<String, Pair<Int, Int>>>()
+    val queue = LinkedList<Array<IntArray>>()
+    val hashMap = HashMap<String, Pair<String, Pair<Int, Int>>>()
 
-        queue.add(board)
-        while (queue.isNotEmpty()) {
-            val arr = queue.poll()
-            val s = hash(arr)
-            val positionOfZero = positionOfZero(arr)
-            if (s == targetHash) {
-                val stack = LinkedList<String>()
-                val stack2 = LinkedList<String>()
-                stack.addFirst(targetHash)
-                var r = targetHash
-                while (r != hash(board)) {
-                    val pair = hashMap[r]!!
-                    r = pair.first
-                    stack.addFirst(pair.first)
-                    stack2.addFirst(pair.second.let {
-                        when (it) {
-                            Pair(-1, 0) -> "上"
-                            Pair(1, 0) -> "下"
-                            Pair(0, -1) -> "左"
-                            Pair(0, 1) -> "右"
-                            else -> "不可能进这里的啦！！！"
-                        }
-                    })
-                }
-
-                return Triple(stack.lastIndex, stack.joinToString(separator = " -> "), stack2.joinToString(separator = " -> "))
-            }
-            directions.map { Pair(it.first + positionOfZero.first, it.second + positionOfZero.second) }
-                    .filter { it.first in xRange && it.second in yRange }
-                    .forEach {
-                        val copyedArr = copy(arr)
-                        val temp = copyedArr[positionOfZero.first][positionOfZero.second]
-                        copyedArr[positionOfZero.first][positionOfZero.second] = copyedArr[it.first][it.second]
-                        copyedArr[it.first][it.second] = temp
-                        val s1 = hash(copyedArr)
-                        if (s1 !in hashMap) {
-                            hashMap[s1] = Pair(s, Pair(it.first - positionOfZero.first, it.second - positionOfZero.second))
-                            queue.add(copyedArr)
-                        }
+    queue.add(board)
+    while (queue.isNotEmpty()) {
+        val arr = queue.poll()
+        val s = hash(arr)
+        val positionOfZero = positionOfZero(arr)
+        if (s == targetHash) {
+            val stack = LinkedList<String>()
+            val stack2 = LinkedList<String>()
+            stack.addFirst(targetHash)
+            var r = targetHash
+            while (r != hash(board)) {
+                val pair = hashMap[r]!!
+                r = pair.first
+                stack.addFirst(pair.first)
+                stack2.addFirst(pair.second.let {
+                    when (it) {
+                        Pair(-1, 0) -> "上"
+                        Pair(1, 0) -> "下"
+                        Pair(0, -1) -> "左"
+                        Pair(0, 1) -> "右"
+                        else -> "不可能进这里的啦！！！"
                     }
-        }
+                })
+            }
 
-        return Triple(-1, "无解", "无解")
+            return Triple(stack.lastIndex, stack.joinToString(separator = " -> "), stack2.joinToString(separator = " -> "))
+        }
+        directions.map { Pair(it.first + positionOfZero.first, it.second + positionOfZero.second) }
+                .filter { it.first in xRange && it.second in yRange }
+                .forEach {
+                    val copyedArr = copy(arr)
+                    val temp = copyedArr[positionOfZero.first][positionOfZero.second]
+                    copyedArr[positionOfZero.first][positionOfZero.second] = copyedArr[it.first][it.second]
+                    copyedArr[it.first][it.second] = temp
+                    val s1 = hash(copyedArr)
+                    if (s1 !in hashMap) {
+                        hashMap[s1] = Pair(s, Pair(it.first - positionOfZero.first, it.second - positionOfZero.second))
+                        queue.add(copyedArr)
+                    }
+                }
     }
+
+    return Triple(-1, "无解", "无解")
 }

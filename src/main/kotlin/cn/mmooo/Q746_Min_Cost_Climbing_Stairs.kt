@@ -2,7 +2,7 @@ package cn.mmooo.q746
 
 fun main(args: Array<String>) {
     intArrayOf(0, 0, 0, 1).let {
-        Solution().minCostClimbingStairs(it)
+        minCostClimbingStairs(it)
     }
 }
 
@@ -20,16 +20,14 @@ Input: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
 Output: 6
 Explanation: Cheapest is start on cost[0], and only step on 1s, skipping cost[3].
  */
-private class Solution {
-    fun minCostClimbingStairs(cost: IntArray): Int {
-        val minCost = IntArray(cost.size)
-        minCost[0] = cost[0]
-        minCost[1] = cost[1]
+fun minCostClimbingStairs(cost: IntArray): Int {
+    val minCost = IntArray(cost.size)
+    minCost[0] = cost[0]
+    minCost[1] = cost[1]
 
-        (2..cost.lastIndex).forEach {
-            minCost[it] = Math.min(minCost[it - 1], minCost[it - 2]) + cost[it]
-        }
-        println(minCost.toList())
-        return Math.min(minCost.last(), minCost[minCost.lastIndex - 1])
+    (2..cost.lastIndex).forEach {
+        minCost[it] = Math.min(minCost[it - 1], minCost[it - 2]) + cost[it]
     }
+    println(minCost.toList())
+    return Math.min(minCost.last(), minCost[minCost.lastIndex - 1])
 }

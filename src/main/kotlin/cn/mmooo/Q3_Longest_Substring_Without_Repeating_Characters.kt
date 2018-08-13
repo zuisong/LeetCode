@@ -16,7 +16,7 @@ Given "", the answer is "wke", with the length of 3. Note that the answer must b
 fun main(args: Array<String>) {
     measureTimeMillis {
 
-        Solution().lengthOfLongestSubstring(
+        lengthOfLongestSubstring(
 
                 """
                 tmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgftmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwgtmmzuxtdsrrewrewrewgewrgfegrwegfsdgwergdfsgrwtgfdgwegsdfgrehgfdgfsegergdfsgdfgdfgwregerwg
@@ -27,8 +27,7 @@ fun main(args: Array<String>) {
 }
 
 
-class Solution {
-    fun lengthOfLongestSubstring(str: String): Int {
+fun lengthOfLongestSubstring(str: String): Int {
 
 
 //         暴力解法，通不过
@@ -44,23 +43,22 @@ class Solution {
 //        }
 //        return  result
 
-        var lastUniqIndex = 0
-        var maxUniqSubStringSize = 0
+    var lastUniqIndex = 0
+    var maxUniqSubStringSize = 0
 
-        val map = HashMap<Char, Int>()
+    val map = HashMap<Char, Int>()
 
-        str.forEachIndexed { index, c ->
-            if (map[c] == null || map[c]!! < lastUniqIndex) {
-                map[c] = index
-                if (index - lastUniqIndex + 1 > maxUniqSubStringSize) {
-                    maxUniqSubStringSize = index - lastUniqIndex + 1
-                }
-            } else {
-                lastUniqIndex = map[c]!! + 1
-                map[c] = index
+    str.forEachIndexed { index, c ->
+        if (map[c] == null || map[c]!! < lastUniqIndex) {
+            map[c] = index
+            if (index - lastUniqIndex + 1 > maxUniqSubStringSize) {
+                maxUniqSubStringSize = index - lastUniqIndex + 1
             }
+        } else {
+            lastUniqIndex = map[c]!! + 1
+            map[c] = index
         }
-
-        return maxUniqSubStringSize
     }
+
+    return maxUniqSubStringSize
 }

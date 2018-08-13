@@ -20,44 +20,42 @@ package cn.mmooo.q209
 用一张图来表示就是这样的，每一行的黄色部分代表本次循环选中的区间
  */
 fun main(args: Array<String>) {
-    Solution().minSubArrayLen(6, intArrayOf(10, 2, 3)).let(::println)
+    minSubArrayLen(6, intArrayOf(2, 3, 3)).let(::println)
 }
 
-class Solution {
-    fun minSubArrayLen(k: Int, nums: IntArray): Int {
-        if (nums.isEmpty()) {
-            return 0
-        }
-        var minLen = Int.MAX_VALUE
-        var s = 0
-        var e = 0
-        var sum = nums[s]
-
-
-        loop@ while (true) {
-            when {
-                sum >= k -> {
-                    minLen = Math.min(e - s + 1, minLen)
-                    s += 1
-                    if (s == nums.lastIndex) {
-                        break@loop
-                    }
-                    sum -= nums[s - 1]
-                }
-                sum < k -> {
-                    e += 1
-                    if (e > nums.lastIndex) {
-                        break@loop
-                    }
-                    sum += nums[e]
-                }
-            }
-            if (s > e) {
-                sum = nums[s]
-                e = s
-            }
-        }
-        return if (minLen == Int.MAX_VALUE) 0 else minLen
-
+fun minSubArrayLen(k: Int, nums: IntArray): Int {
+    if (nums.isEmpty()) {
+        return 0
     }
+    var minLen = Int.MAX_VALUE
+    var s = 0
+    var e = 0
+    var sum = nums[s]
+
+
+    loop@ while (true) {
+        when {
+            sum >= k -> {
+                minLen = Math.min(e - s + 1, minLen)
+                s += 1
+                if (s == nums.lastIndex) {
+                    break@loop
+                }
+                sum -= nums[s - 1]
+            }
+            sum < k -> {
+                e += 1
+                if (e > nums.lastIndex) {
+                    break@loop
+                }
+                sum += nums[e]
+            }
+        }
+        if (s > e) {
+            sum = nums[s]
+            e = s
+        }
+    }
+    return if (minLen == Int.MAX_VALUE) 0 else minLen
+
 }

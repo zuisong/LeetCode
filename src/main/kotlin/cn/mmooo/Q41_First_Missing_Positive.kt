@@ -20,32 +20,30 @@ import java.util.*
 说明:
 
 你的算法的时间复杂度应为O(n)，并且只能使用常数级别的空间。
-*/
+ */
 
 fun main(args: Array<String>) {
     val random = Random()
     val nums = IntArray(1000, { random.nextInt(500) }).distinct().toIntArray()
-    Solution().firstMissingPositive(nums)
+    firstMissingPositive(nums)
             .let(::println)
     println(nums.toList().sorted().slice(0..30))
 }
 
 
-class Solution {
-    fun firstMissingPositive(nums: IntArray): Int {
-        var tempValue: Int
-        repeat(nums.size) { idx ->
-            var d = nums[idx]
-            while (d > 0 && d < nums.size) {
-                tempValue = nums[d - 1]
-                if (tempValue == d) {
-                    break
-                }
-                nums[d - 1] = d
-                d = tempValue
-                nums[idx] = tempValue
+fun firstMissingPositive(nums: IntArray): Int {
+    var tempValue: Int
+    repeat(nums.size) { idx ->
+        var d = nums[idx]
+        while (d > 0 && d < nums.size) {
+            tempValue = nums[d - 1]
+            if (tempValue == d) {
+                break
             }
+            nums[d - 1] = d
+            d = tempValue
+            nums[idx] = tempValue
         }
-        return 1 + (nums.withIndex().firstOrNull { it.index != it.value - 1 }?.index ?: nums.size)
     }
+    return 1 + (nums.withIndex().firstOrNull { it.index != it.value - 1 }?.index ?: nums.size)
 }

@@ -2,7 +2,7 @@ package cn.mmooo.q205
 
 
 fun main(args: Array<String>) {
-    Solution().isIsomorphic("ad", "aa")
+    isIsomorphic("ad", "aa")
             .let { println(it) }
 }
 
@@ -22,24 +22,22 @@ Given "foo", "bar", return false.
 
 Given "paper", "title", return true.
  */
-class Solution {
-    fun isIsomorphic(s: String, t: String): Boolean {
+fun isIsomorphic(s: String, t: String): Boolean {
 
-        val charMap = HashMap<Char, Char>()
+    val charMap = HashMap<Char, Char>()
 
-        s.forEachIndexed { i, c ->
-            if (charMap.contains(c)) {
-                if (charMap[c] != t[i]) {
-                    return false
-                }
-            } else {
-                charMap[c] = t[i]
-                if (t[i] in t.slice(0 until i)) {
-                    return false
-                }
+    s.forEachIndexed { i, c ->
+        if (charMap.contains(c)) {
+            if (charMap[c] != t[i]) {
+                return false
+            }
+        } else {
+            charMap[c] = t[i]
+            if (t[i] in t.slice(0 until i)) {
+                return false
             }
         }
-
-        return true
     }
+
+    return true
 }

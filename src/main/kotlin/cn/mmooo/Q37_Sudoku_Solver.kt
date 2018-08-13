@@ -22,7 +22,7 @@ fun main(args: Array<String>) {
             "000080079"
     ).map { it.map { if (it == '0') '.' else it }.toCharArray() }.toTypedArray()
 
-    Solution().solveSudoku(sudo)
+    solveSudoku(sudo)
 
     sudo.forEach {
         it.forEach { print("$it ") }
@@ -31,30 +31,28 @@ fun main(args: Array<String>) {
 
 }
 
-private class Solution {
-    fun solveSudoku(board: Array<CharArray>): Unit {
-        var result: Array<CharArray>? = null
-        fun solve(arr: Array<CharArray>, index: Int = 0) {
-            if (index == 81) {
-                result = arr
-            } else {
-                val (x, y) = Pair(index / 9, index % 9)
-                if (arr[x][y] != '.') {
-                    solve(arr, index + 1)
-                } else
-                    ('1'..'9').filter { checKValue(arr, x, y, it) }
-                            .forEach {
-                                val copyedArr = copyArr(arr)
-                                copyedArr[x][y] = it
-                                solve(copyedArr, index + 1)
-                            }
-            }
+fun solveSudoku(board: Array<CharArray>): Unit {
+    var result: Array<CharArray>? = null
+    fun solve(arr: Array<CharArray>, index: Int = 0) {
+        if (index == 81) {
+            result = arr
+        } else {
+            val (x, y) = Pair(index / 9, index % 9)
+            if (arr[x][y] != '.') {
+                solve(arr, index + 1)
+            } else
+                ('1'..'9').filter { checKValue(arr, x, y, it) }
+                        .forEach {
+                            val copyedArr = copyArr(arr)
+                            copyedArr[x][y] = it
+                            solve(copyedArr, index + 1)
+                        }
         }
-        solve(board, 0)
-        result!!.forEachIndexed { x, ints ->
-            ints.forEachIndexed { y, v ->
-                board[x][y] = v
-            }
+    }
+    solve(board, 0)
+    result!!.forEachIndexed { x, ints ->
+        ints.forEachIndexed { y, v ->
+            board[x][y] = v
         }
     }
 }

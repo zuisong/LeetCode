@@ -12,29 +12,27 @@ is less than k.
 
 fun main(args: Array<String>) {
     val nums = intArrayOf(10, 5, 2, 6)
-    Solution().numSubarrayProductLessThanK(nums, 100).let(::println)
+    numSubarrayProductLessThanK(nums, 100).let(::println)
 }
 
 
-class Solution {
-    fun numSubarrayProductLessThanK(nums: IntArray, k: Int): Int {
+fun numSubarrayProductLessThanK(nums: IntArray, k: Int): Int {
 
-        var productResult = 1
+    var productResult = 1
 
-        var left = 0
+    var left = 0
 
-        var count = 0
+    var count = 0
 
-        nums.forEachIndexed { i, v ->
-            productResult *= v
-            while (productResult >= k && left <= nums.lastIndex) {
-                productResult /= nums[left]
-                left++
-            }
-            count = count + i - left + 1
-
+    nums.forEachIndexed { i, v ->
+        productResult *= v
+        while (productResult >= k && left <= nums.lastIndex) {
+            productResult /= nums[left]
+            left++
         }
+        count = count + i - left + 1
 
-        return count
     }
+
+    return count
 }

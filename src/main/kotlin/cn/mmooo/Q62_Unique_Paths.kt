@@ -8,26 +8,24 @@ package cn.mmooo.q62
 问有多少条不同的路径？
  */
 fun main(args: Array<String>) {
-    Solution().uniquePaths(7, 10)
+    uniquePaths(7, 10)
             .let { println(it) }
 }
 
-class Solution {
-    fun uniquePaths(m: Int, n: Int): Int {
-        val mat = Array(m, { IntArray(n) })
+fun uniquePaths(m: Int, n: Int): Int {
+    val mat = Array(m, { IntArray(n) })
 
-        repeat(m) { x ->
-            repeat(n) { y ->
-                when {
-                    x == 0 || y == 0 -> mat[x][y] = 1
-                    else -> {
-                        mat[x][y] = mat[x - 1][y] + mat[x][y - 1]
-                    }
+    repeat(m) { x ->
+        repeat(n) { y ->
+            when {
+                x == 0 || y == 0 -> mat[x][y] = 1
+                else -> {
+                    mat[x][y] = mat[x - 1][y] + mat[x][y - 1]
                 }
             }
         }
-        return mat.last().last()
     }
+    return mat.last().last()
 }
 
 

@@ -12,7 +12,7 @@ Minimize the total number of operations.
 fun main(args: Array<String>) {
 
     val arr = intArrayOf(0, 1, 0, 3, 12)
-    Solution().moveZeroes(arr)
+    moveZeroes(arr)
     print(arr.toList())
 
 }
@@ -23,14 +23,12 @@ private fun IntArray.swap(i: Int, j: Int) {
     this[i] = tempValue
 }
 
-class Solution {
-    fun moveZeroes(nums: IntArray): Unit {
-        (1 until nums.size).forEach { i ->
-            var j = i
-            while (j > 0 && nums[j] >= 0 && nums[j - 1] == 0) {
-                nums.swap(j, j - 1)
-                j--
-            }
+fun moveZeroes(nums: IntArray): Unit {
+    (1 until nums.size).forEach { i ->
+        var j = i
+        while (j > 0 && nums[j] >= 0 && nums[j - 1] == 0) {
+            nums.swap(j, j - 1)
+            j--
         }
     }
 }

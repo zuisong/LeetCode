@@ -1,59 +1,57 @@
 package cn.mmooo.q11
 
-class Solution {
-    // 递归解法，递归太深导致栈溢出
-    fun maxArea1(height: IntArray): Int {
-        fun maxAreaOfIndex(startIndex: Int, endIndex: Int): Int {
-            val currentArea = (endIndex - startIndex) * Math.min(height[startIndex], height[endIndex])
-            if (endIndex - startIndex <= 1) {
-                return currentArea
-            }
-
-            return when {
-                height[startIndex] > height[endIndex] -> {
-                    Math.max(currentArea, maxAreaOfIndex(startIndex, endIndex - 1))
-                }
-                height[startIndex] < height[endIndex] -> {
-                    Math.max(currentArea, maxAreaOfIndex(startIndex + 1, endIndex))
-                }
-                else -> {
-                    Math.max(currentArea, maxAreaOfIndex(startIndex + 1, endIndex - 1))
-                }
-            }
-
+// 递归解法，递归太深导致栈溢出
+fun maxArea1(height: IntArray): Int {
+    fun maxAreaOfIndex(startIndex: Int, endIndex: Int): Int {
+        val currentArea = (endIndex - startIndex) * Math.min(height[startIndex], height[endIndex])
+        if (endIndex - startIndex <= 1) {
+            return currentArea
         }
-        return maxAreaOfIndex(0, height.lastIndex)
-    }
 
-    // 双指针解法
-    fun maxArea(height: IntArray): Int {
-        var maxArea = 0
-
-        var startIndex = 0
-        var endIndex = height.lastIndex
-
-        while (endIndex - startIndex > 0) {
-            val currentArea = (endIndex - startIndex) * Math.min(height[startIndex], height[endIndex])
-            if (currentArea > maxArea) maxArea = currentArea
-
-
-            when {
-                height[startIndex] > height[endIndex] -> {
-                    endIndex--
-                }
-                height[startIndex] < height[endIndex] -> {
-                    startIndex++
-                }
-                else -> {
-                    startIndex++
-                    endIndex--
-                }
+        return when {
+            height[startIndex] > height[endIndex] -> {
+                Math.max(currentArea, maxAreaOfIndex(startIndex, endIndex - 1))
             }
-
+            height[startIndex] < height[endIndex] -> {
+                Math.max(currentArea, maxAreaOfIndex(startIndex + 1, endIndex))
+            }
+            else -> {
+                Math.max(currentArea, maxAreaOfIndex(startIndex + 1, endIndex - 1))
+            }
         }
-        return maxArea
 
     }
+    return maxAreaOfIndex(0, height.lastIndex)
+}
+
+// 双指针解法
+fun maxArea(height: IntArray): Int {
+    var maxArea = 0
+
+    var startIndex = 0
+    var endIndex = height.lastIndex
+
+    while (endIndex - startIndex > 0) {
+        val currentArea = (endIndex - startIndex) * Math.min(height[startIndex], height[endIndex])
+        if (currentArea > maxArea) maxArea = currentArea
+
+
+        when {
+            height[startIndex] > height[endIndex] -> {
+                endIndex--
+            }
+            height[startIndex] < height[endIndex] -> {
+                startIndex++
+            }
+            else -> {
+                startIndex++
+                endIndex--
+            }
+        }
+
+    }
+    return maxArea
+
 }
 
 
@@ -66,6 +64,6 @@ fun main(args: Array<String>) {
             5012,8043,6230,7374,4422,4920,3785,8538,5199,4325,8316,4371,6414,3527,6092,8981,9957,1874,
             6863,9171,6997,7282,2306,926,7085,6328,337,6506,847,1730,1314,5858,6125,3896,9583,546,8815,3368
             """
-                    .split(",").map { it.trim() }.map { it.toInt() }.toIntArray()
-    Solution().maxArea(intArray).let(::println)
+                    .split(",").map(String::trim).map { it.toInt() }.toIntArray()
+    maxArea(intArray).let(::println)
 }

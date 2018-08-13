@@ -32,12 +32,10 @@ class TreeNode(var `val`: Int = 0) {
     var right: TreeNode? = null
 }
 
-class Solution {
-    fun isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
-        return when {
-            p == null && q == null -> true
-            p == null || q == null -> false
-            else -> p.`val` == q.`val` && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
-        }
+fun isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
+    return when {
+        p == null && q == null -> true
+        p == null || q == null -> false
+        else -> p.`val` == q.`val` && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
     }
 }

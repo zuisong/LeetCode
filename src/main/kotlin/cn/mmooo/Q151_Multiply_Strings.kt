@@ -4,10 +4,10 @@ import java.math.BigInteger
 
 fun main(args: Array<String>) {
 
-    val num1 = "4565467646468465461457828728928928253683354585527827825578272782872872343878"
-    val num2 = "5453487545434852727827875252782727865383863542363543563287453484354843548"
+    val num1 = "456546764646846354585527827822872872343878"
+    val num2 = "5453487545434852727863542363543563287453484354843548"
     val result = BigInteger(num1) * BigInteger(num2)
-    val result1 = multiply(num1, num2) + "1"
+    val result1 = multiply(num1, num2)
     println("$num1 * $num2 = $result")
     println("$num1 * $num2 = $result1")
 
