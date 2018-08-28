@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyType>, Iterable<AnyType> {
+public class QueueAndStackByJava<AnyType> implements Iterable<AnyType> {
 
     private int size;
     private Node<AnyType> head;
@@ -21,7 +21,6 @@ public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyTy
         tail.pre = head;
     }
 
-    @Override
     public void makeEmpty() {
         init();
     }
@@ -31,7 +30,6 @@ public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyTy
     }
 
 
-    @Override
     public AnyType poll() {
         checkSize();
         final AnyType t = head.next.ele;
@@ -48,7 +46,6 @@ public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyTy
         }
     }
 
-    @Override
     public void push(AnyType anyType) {
         Node<AnyType> node = new Node<>(anyType);
         tail.pre.next = node;
@@ -60,7 +57,6 @@ public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyTy
     }
 
 
-    @Override
     public AnyType pop() {
         checkSize();
         final AnyType t = tail.pre.ele;
@@ -70,35 +66,35 @@ public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyTy
         return t;
     }
 
-    @Override
+
     public boolean isEmpty() {
-        return size() == 0;
+        return size == 0;
     }
 
-    @Override
+
     public AnyType peekFirst() {
         checkSize();
         return head.next.ele;
     }
 
-    @Override
+
     public AnyType peekLast() {
         checkSize();
         return tail.pre.ele;
     }
 
-    @Override
+
     public Iterator<AnyType> iterator() {
         return new Iterator<AnyType>() {
 
             private Node<AnyType> currentIterNode = head;
 
-            @Override
+
             public boolean hasNext() {
                 return currentIterNode.next != tail;
             }
 
-            @Override
+
             public AnyType next() {
                 currentIterNode = currentIterNode.next;
                 return currentIterNode.ele;
@@ -106,12 +102,7 @@ public class QueueAndStackByJava<AnyType> implements Queue<AnyType>, Stack<AnyTy
         };
     }
 
-    @Override
-    public boolean containsAll(@NotNull Collection<?> c) {
-        return c.parallelStream().allMatch(this::contains);
-    }
 
-    @Override
     public int getSize() {
         return this.size;
     }
