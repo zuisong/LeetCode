@@ -41,7 +41,6 @@ fun rotate(matrix: Array<IntArray>) {
         }
         i++
     }
-
 }
 
 fun main(args: Array<String>) {

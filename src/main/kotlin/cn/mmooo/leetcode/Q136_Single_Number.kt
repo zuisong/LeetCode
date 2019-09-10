@@ -2,7 +2,8 @@ package cn.mmooo.leetcode
 
 
 fun main(args: Array<String>) {
-    singleNumber(intArrayOf(1, 1, 100, 3, 3)).let(::println)
+    singleNumber(intArrayOf(1, 1, 100, 3, 3))
+            .let(::println)
 
 }
 

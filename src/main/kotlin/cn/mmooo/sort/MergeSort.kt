@@ -29,13 +29,10 @@ fun merge(left: IntArray, right: IntArray): IntArray {
     while (i < leftSize || j < rightSize) {
         val l = left.getOrElse(i, { Int.MAX_VALUE })
         val r = right.getOrElse(j, { Int.MAX_VALUE })
-        when {
-            l <= r -> {
-                result[i + j] = l; i++
-            }
-            else -> {
-                result[i + j] = r; j++
-            }
+        if (l <= r) {
+            result[i + j] = l; i++
+        } else {
+            result[i + j] = r; j++
         }
     }
 

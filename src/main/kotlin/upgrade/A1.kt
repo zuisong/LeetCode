@@ -1,12 +1,12 @@
 package upgrade
 
-import kotlin.system.measureTimeMillis
+import kotlin.system.*
 
 fun main(args: Array<String>) {
+    val repeated = ('a'..'z').joinToString(separator = "").repeat(1000 * 10000)
     repeat(10) {
         println(measureTimeMillis {
-            val repeated = ('a'..'z').joinToString(separator = "").repeat(1000 * 10000)
-            println(repeated.groupingBy { it }.eachCount())
+            repeated.groupingBy { it }.eachCount()
         } / 1000.0)
 
     }

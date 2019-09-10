@@ -1,7 +1,13 @@
 package cn.mmooo.sort
 
 fun main(args: Array<String>) {
-    val nums = intArrayOf(1, 1545, 5, 7, 8, 32, 8, 431, 432, 53, 445, 12, 45).toTypedArray()
+    var nums = generateSequence(1) { it + 1 }
+            .take(11)
+            .toList()
+            .shuffled()
+            .toTypedArray()
+
+    println(nums.toList())
     quickSort(nums)
     println(nums.toList())
 }
@@ -20,17 +26,14 @@ fun <T : Comparable<T>> quickSort(arr: Array<T>, i1: Int = 0, i2: Int = arr.last
 
     var i = i1
     var j = i2 - 1
+    val n = arr[i2]
 
     while (i <= j) {
-        if (arr[i] <= arr[i2]) {
-            i++
-            continue
+        when {
+            arr[i] <= n -> i++
+            arr[j] > n -> j--
+            else -> arr.swap(i, j)
         }
-        if (arr[j] > arr[i2]) {
-            j--
-            continue
-        }
-        arr.swap(i, j)
     }
 
     arr.swap(i2, i)

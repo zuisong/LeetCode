@@ -1,9 +1,10 @@
 package cn.mmooo.leetcode
 
-import kotlin.system.measureTimeMillis
+import kotlin.system.*
 
 /**
-Given a string, find the length of the longest substring without repeating characters.
+Given a string, find the length of the longest substring without
+repeating characters.
 
 Examples:
 
@@ -48,7 +49,7 @@ fun lengthOfLongestSubstring(str: String): Int {
 
     val map = HashMap<Char, Int>()
 
-    str.forEachIndexed { index, c ->
+    for ((index, c) in str.withIndex()) {
         if (map[c] == null || map[c]!! < lastUniqIndex) {
             map[c] = index
             if (index - lastUniqIndex + 1 > maxUniqSubStringSize) {

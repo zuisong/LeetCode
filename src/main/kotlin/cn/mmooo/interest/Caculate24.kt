@@ -1,10 +1,29 @@
 package cn.mmooo.interest
 
-import java.util.HashMap
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.List
+import kotlin.collections.distinct
+import kotlin.collections.filter
+import kotlin.collections.forEach
+import kotlin.collections.joinToString
+import kotlin.collections.map
+import kotlin.collections.minus
+import kotlin.collections.set
+import kotlin.collections.sortedBy
 
+open class Test3 {
+    companion object {
+
+        @JvmStatic
+        fun test2() {
+            println(111)
+        }
+    }
+}
 
 fun main(args: Array<String>) {
-    val ints = intArrayOf(10, 10, 4, 4)
+    val ints = intArrayOf(4, 8, 4, 4)
     caculate24All(*ints)
             .let {
                 println("{${ints.joinToString()}} 算24的解法有")

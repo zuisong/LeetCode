@@ -27,15 +27,13 @@ fun main(args: Array<String>) {
  *     var right: TreeNode? = null
  * }
  */
-class TreeNode(var `val`: Int = 0) {
+data class TreeNode(var `val`: Int = 0) {
     var left: TreeNode? = null
     var right: TreeNode? = null
 }
 
-fun isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
-    return when {
-        p == null && q == null -> true
-        p == null || q == null -> false
-        else -> p.`val` == q.`val` && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
-    }
+fun isSameTree(p: TreeNode?, q: TreeNode?): Boolean = when {
+    p == null && q == null -> true
+    p == null || q == null -> false
+    else -> p.`val` == q.`val` && isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
 }

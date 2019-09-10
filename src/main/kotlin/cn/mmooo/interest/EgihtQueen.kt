@@ -7,6 +7,9 @@ fun main(args: Array<String>) {
     var result: List<List<String>> = listOf()
 
 
+    println(Test2.a)
+
+
     val array = IntArray(queenNumber)
 
     val saveResult: (IntArray) -> Unit = { res ->
@@ -23,7 +26,7 @@ fun main(args: Array<String>) {
     var resultNumber = 0
     fun solve(arr: IntArray, row: Int) {
         (0 until queenNumber).filter { column ->
-            (0 until row).none { Math.abs((arr[it] - column)) == Math.abs(row - it) || arr[it] == column }
+            (0 until row).none { Math.abs((arr[it] - column)) == (row - it) || arr[it] == column }
         }.forEach { column ->
             arr[row] = column
             solve(arr, row + 1)

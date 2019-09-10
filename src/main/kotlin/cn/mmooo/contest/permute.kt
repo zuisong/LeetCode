@@ -37,5 +37,5 @@ fun permute(nums: IntArray): List<List<Int>> {
 }
 
 fun main(args: Array<String>) {
-    permute(intArrayOf(1, 2, 3,4)).let(::println)
+    permute(intArrayOf(1, 2, 3, 4)).let(::println)
 }

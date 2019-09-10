@@ -10,7 +10,7 @@ fun main(args: Array<String>) {
 }
 
 fun insertSort(nums: IntArray) {
-    (1 until nums.size).forEach { i ->
+    (1 until nums.size step 1).forEach { i ->
         var j = i
         val jValue = nums[j]
         while (j > 0 && jValue < nums[j - 1]) {

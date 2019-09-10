@@ -1,37 +1,38 @@
-import kotlinx.coroutines.experimental.*
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
-import kotlin.system.measureTimeMillis
+import kotlinx.coroutines.*
+import java.lang.Thread.*
+import java.time.*
+import java.util.concurrent.*
+import kotlin.system.*
 
-fun main(args: Array<String>) = runBlocking {
 
-    val threadNum = 5
+fun main() {
+    test1()
+    test2()
+}
 
-    val time: Long = 100
+
+fun test1() = runBlocking {
     measureTimeMillis {
-    val list1 = List(threadNum) {
-        async(CommonPool) {
-            println(1)
-            delay(time, TimeUnit.MILLISECONDS)
+        coroutineScope {
+            repeat(10000) {
+                launch {
+                    delay(1000)
+                    println("${LocalDateTime.now()} hello, $it")
+                }
+            }
         }
-    }
-    Thread.sleep(200)
-println(2)
-println(3)
-        list1.forEach { it.join() }
     }.let(::println)
+}
 
-//
-//    val list2 = List(threadNum) {
-//        Executors.callable {
-//            Thread.sleep(time)
-//        }
-//    }
-//
-//    measureTimeMillis {
-//        val threadPool = Executors.newCachedThreadPool()
-//        threadPool.invokeAll(list2)
-//        threadPool.shutdown()
-//    }.let(::println)
+fun test2() {
+    val threadPool = Executors.newCachedThreadPool()
 
+    measureTimeMillis {
+        repeat(10000) {
+            threadPool.submit {
+                sleep(1000)
+                println("${LocalDateTime.now()} hello, $it")
+            }
+        }
+    }.let(::println)
 }

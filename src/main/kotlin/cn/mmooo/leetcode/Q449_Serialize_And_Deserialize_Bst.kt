@@ -82,7 +82,7 @@ fun main(args: Array<String>) {
     val s = codec.serialize(root)
     s.let(::println)
     val node = codec.deserialize(s)
-    val b = root == node
+    val b = isSameTree(root, node)
     println(b)
 }
 
