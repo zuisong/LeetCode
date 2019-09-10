@@ -12,11 +12,17 @@ public class monotonic_array {
         int flag = 0;
         for (int i = 1; i < A.length; i++) {
             if (flag == 0) {
-                if (A[i - 1] > A[i]) flag = -1;
-                if (A[i - 1] < A[i]) flag = 1;
+                if (A[i - 1] > A[i]) {
+                    flag = -1;
+                }
+                if (A[i - 1] < A[i]) {
+                    flag = 1;
+                }
             } else {
                 int res = Integer.compare(A[i], A[i - 1]) * flag;
-                if (res < 0) return false;
+                if (res < 0) {
+                    return false;
+                }
             }
         }
         return true;

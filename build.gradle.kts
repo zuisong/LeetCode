@@ -1,6 +1,6 @@
 plugins {
     kotlin("jvm") version "1.3.30"
-    id("org.jetbrains.kotlin.kapt") version "1.3.30"
+    kotlin("kapt") version "1.3.30"
 }
 
 
@@ -10,20 +10,12 @@ kapt {
 
 dependencies {
     compile(kotlin("stdlib"))
-    compile(group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version = "1.2.1")
-    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.16.20")
-
-    // https://mvnrepository.com/artifact/com.github.binarywang/weixin-java-mp
-    compile(group = "com.github.binarywang", name = "weixin-java-mp", version = "3.3.0")
-// https://mvnrepository.com/artifact/org.jetbrains.exposed/exposed
-    // https://mvnrepository.com/artifact/org.jetbrains.exposed/exposed
-    compile("org.jetbrains.exposed", "exposed", "0.13.6")
+    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0")
+    compile("org.jetbrains.exposed:exposed:0.17.3")
+    compileOnly("org.projectlombok:lombok:1.18.8")
 // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile("mysql:mysql-connector-java:5.1.47")
-    compile("org.apache.logging.log4j", "log4j-api", "2.11.2")
-    compile("org.apache.logging.log4j", "log4j-core", "2.11.2")
-    compile("org.apache.logging.log4j", "log4j-slf4j-impl", "2.11.2")
-
+    implementation("ch.qos.logback:logback-classic:1.2.3")
 }
 
 repositories {

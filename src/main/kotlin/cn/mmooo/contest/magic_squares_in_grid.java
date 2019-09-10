@@ -45,13 +45,21 @@ public class magic_squares_in_grid {
     }
 
     private boolean checkIsMagicSquares(int x, int y, int[][] grid) {
-        if (x > grid.length - 3) return false;
-        if (y > grid[0].length - 3) return false;
+        if (x > grid.length - 3) {
+            return false;
+        }
+        if (y > grid[0].length - 3) {
+            return false;
+        }
 
         for (int i = x; i < x + 3; i++) {
             for (int j = y; j < y + 3; j++) {
-                if (grid[i][j] > 9) return false;
-                if (grid[i][j] < 1) return false;
+                if (grid[i][j] > 9) {
+                    return false;
+                }
+                if (grid[i][j] < 1) {
+                    return false;
+                }
             }
         }
 
@@ -59,15 +67,21 @@ public class magic_squares_in_grid {
         int sum = grid[x][y] + grid[x + 1][y] + grid[x + 2][y];
         for (int i = 0; i < 3; i++) {
             temp = grid[x][y + i] + grid[x + 1][y + i] + grid[x + 2][y + i];
-            if (temp != sum) return false;
+            if (temp != sum) {
+                return false;
+            }
 
             temp = grid[x + i][y] + grid[x + i][y + 1] + grid[x + i][y + 2];
-            if (temp != sum) return false;
+            if (temp != sum) {
+                return false;
+            }
 
         }
 
         temp = grid[x][y] + grid[x + 1][y + 1] + grid[x + 2][y + 2];
-        if (temp != sum) return false;
+        if (temp != sum) {
+            return false;
+        }
 
         temp = grid[x][y + 2] + grid[x + 1][y + 1] + grid[x + 2][y];
         return temp == sum;

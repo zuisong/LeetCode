@@ -5,37 +5,41 @@ package cn.mmooo.contest
  */
 fun letterCombinations(digits: String): List<String> {
 
-    val digitsToChars = mapOf(
-            '2' to "abc".toCharArray(),
-            '3' to "def".toCharArray(),
-            '4' to "ghi".toCharArray(),
-            '5' to "jkl".toCharArray(),
-            '6' to "mno".toCharArray(),
-            '7' to "pqrs".toCharArray(),
-            '8' to "tuv".toCharArray(),
-            '9' to "wxyz".toCharArray()
-    )
+    val digitsToChars =
+            mapOf(
+                    '2' to "abc",
+                    '3' to "def",
+                    '4' to "ghi",
+                    '5' to "jkl",
+                    '6' to "mno",
+                    '7' to "pqrs",
+                    '8' to "tuv",
+                    '9' to "wxyz"
+            ).mapValues { it.value.toCharArray() }
 
 
-    var result = arrayListOf<String>()
+    var result = MutableList(1 shr digits.length) { "" }
 
-    fun dfs(index: Int, str: String) {
+    fun dfs(index: Int, str: StringBuilder) {
         if (index >= digits.length) {
-            result.add(str)
+            result.add(str.toString())
             return
         }
 
-        for (c in digitsToChars[digits[index]]!!) dfs(index + 1, str + c)
-
+        for (c in digitsToChars[digits[index]] ?: error("输入有误")) {
+            dfs(index + 1, str.append(c))
+            str.deleteCharAt(str.lastIndex)
+        }
     }
 
 
 
-    dfs(0, "")
+    dfs(0, StringBuilder(digits.length))
 
     return result
 }
 
 fun main(args: Array<String>) {
-    letterCombinations("245").let(::println)
+    letterCombinations("24556568568")
+            .forEach(::println)
 }
