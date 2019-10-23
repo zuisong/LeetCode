@@ -17,6 +17,10 @@ fun main(args: Array<String>) {
 
 class SimpleBinaryTreeImpl<E : Comparable<E>> : BinaryTree<E> {
 
+    override fun toString(): String {
+      return  "我是一棵二叉树"
+    }
+
     private var currentSize = 0
 
     override val size: Int

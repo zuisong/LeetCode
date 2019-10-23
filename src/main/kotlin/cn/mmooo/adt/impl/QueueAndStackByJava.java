@@ -1,10 +1,5 @@
 package cn.mmooo.adt.impl;
 
-import cn.mmooo.adt.Queue;
-import cn.mmooo.adt.Stack;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Collection;
 import java.util.Iterator;
 
 public class QueueAndStackByJava<AnyType> implements Iterable<AnyType> {

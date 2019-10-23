@@ -16,23 +16,26 @@ package cn.mmooo.contest
  */
 fun generateParenthesis(n: Int): List<String> {
     val result = arrayListOf<String>()
-    fun dfs(lcount: Int, rcount: Int, str: String) {
+    fun dfs(lcount: Int, rcount: Int, str: StringBuilder) {
         if (lcount >= n && rcount >= n) {
-            result.add(str)
+            result.add(str.toString())
             return
         }
         if (lcount > rcount && rcount < n) {
-            dfs(lcount, rcount + 1, "$str)")
+            dfs(lcount, rcount + 1, str.append(')'))
+            str.deleteCharAt(str.lastIndex)
         }
 
-        if (lcount < n)
-            dfs(lcount + 1, rcount, "$str(")
+        if (lcount < n) {
+            dfs(lcount + 1, rcount, str.append('('))
+            str.deleteCharAt(str.lastIndex)
+        }
 
     }
-    dfs(0, 0, "")
+    dfs(0, 0, StringBuilder())
     return result
 }
 
-fun main(args: Array<String>) {
-    generateParenthesis(5).let(::println)
+fun main() {
+    generateParenthesis(10).forEach(::println)
 }

@@ -17,14 +17,16 @@ Given a puzzle board, return the least number of moves required so that the stat
  */
 fun main(args: Array<String>) {
     val board = arrayOf(
-            intArrayOf(2, 0, 3),
-            intArrayOf(1, 4, 5),
-            intArrayOf(6, 7, 8)
+            intArrayOf(1, 2, 3, 4),
+            intArrayOf(5, 6, 7, 8),
+            intArrayOf(9, 10, 11, 12),
+            intArrayOf(15, 13, 14, 0)
     )
     slidingPuzzle(board, target = arrayOf(
-            intArrayOf(1, 2, 3),
-            intArrayOf(4, 5, 6),
-            intArrayOf(7, 8, 0)
+            intArrayOf(1, 2, 3, 4),
+            intArrayOf(5, 6, 7, 8),
+            intArrayOf(9, 10, 11, 12),
+            intArrayOf(13, 14, 15, 0)
     )).let {
         println("变换路径: ${it.second}")
         println("变换方向: ${it.third}")
@@ -68,7 +70,7 @@ fun hash(arr: Array<IntArray>): String {
     val buffer = StringBuffer()
     arr.forEach { ints ->
         ints.forEach {
-            buffer.append(it)
+            buffer.append(it).append(' ')
         }
     }
     return buffer.toString()
