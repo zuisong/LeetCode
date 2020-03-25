@@ -3,21 +3,16 @@ package cn.mmooo.interest
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.set
+import kotlin.math.*
 
 
-fun main(args: Array<String>) {
-    val ints = intArrayOf(4, 8, 4, 4)
+fun main() {
+    val ints = intArrayOf(5, 10, 4, 4)
     caculate24All(*ints)
             .let {
                 println("{${ints.joinToString()}} 算24的解法有")
                 println(it)
             }
-//    println("==================")
-//    caculate24With4Num(3, 4, 5, 6)
-//            .let {
-//                println("3, 4, 5, 6 算24的解法有")
-//                println(it)
-//            }
 }
 
 /**
@@ -32,94 +27,32 @@ fun caculate24All(vararg args: Int): String {
     val list = cacuN(args.map { Pair(it.toDouble(), "$it") })
 
     val result = list
-            .filter { Math.abs(it.first - 24) < 1e-8 }
+            .filter { abs(it.first - 24) < 1e-8 }
             .map { it.second }
             .distinct()
     return if (result.isEmpty()) "无解" else result.joinToString("\n")
 }
 
-/**
- * 这个函数只能求解 四位数算24问题
- */
-fun caculate24With4Num(num1: Int, num2: Int, num3: Int, num4: Int): String {
-    val list = cacu4(
-            Pair(num1.toDouble(), "$num1"),
-            Pair(num2.toDouble(), "$num2"),
-            Pair(num3.toDouble(), "$num3"),
-            Pair(num4.toDouble(), "$num4")
-    )
-
-    val result = list
-            .filter { Math.abs(it.first - 24) < 1e-8 }
-            .map { it.second }
-            .distinct()
-    return if (result.isEmpty()) "无解" else result.joinToString("\n")
-}
-
-fun String.doA() = this.toIntOrNull() ?: "($this)"
+fun String.addPair(): String = if (toIntOrNull() != null) this else "($this)"
 
 /**
  * 2个数四则运算后的结果情况
  */
-fun cacu2(num1: Pair<Double, String>, num2: Pair<Double, String>): List<Pair<Double, String>> {
-    val list = ArrayList<Pair<Double, String>>()
-    list.add(Pair(num1.first + num2.first, "${num1.second.doA()} + ${num2.second.doA()}"))
-    list.add(Pair(num1.first - num2.first, "${num1.second.doA()} - ${num2.second.doA()}"))
-    list.add(Pair(num2.first - num1.first, "${num2.second.doA()} - ${num1.second.doA()}"))
-    list.add(Pair(num1.first * num2.first, "${num1.second.doA()} * ${num2.second.doA()}"))
+fun cacu2(num1: Pair<Double, String>, num2: Pair<Double, String>) =
+        ArrayList<Pair<Double, String>>().also {
+            it.add(Pair(num1.first + num2.first, "${num1.second.addPair()} + ${num2.second.addPair()}"))
+            it.add(Pair(num1.first - num2.first, "${num1.second.addPair()} - ${num2.second.addPair()}"))
+            it.add(Pair(num2.first - num1.first, "${num2.second.addPair()} - ${num1.second.addPair()}"))
+            it.add(Pair(num1.first * num2.first, "${num1.second.addPair()} * ${num2.second.addPair()}"))
 
-    if (num2.first != 0.0)
-        list.add(Pair(num1.first / num2.first, "${num1.second.doA()} / ${num2.second.doA()}"))
-    if (num1.first != 0.0)
-        list.add(Pair(num2.first / num1.first, "${num2.second.doA()} / ${num1.second.doA()}"))
-    return list
-}
+            if (num2.first != 0.0) {
+                it.add(Pair(num1.first / num2.first, "${num1.second.addPair()} / ${num2.second.addPair()}"))
+            }
 
-/**
- * 3个数四则运算后的结果情况
- */
-fun cacu3(num1: Pair<Double, String>,
-          num2: Pair<Double, String>,
-          num3: Pair<Double, String>): List<Pair<Double, String>> {
-    val list = ArrayList<Pair<Double, String>>()
-    cacu2(num1, num2).forEach {
-        list.addAll(cacu2(num3, it))
-    }
-    cacu2(num3, num2).forEach {
-        list.addAll(cacu2(num1, it))
-    }
-    cacu2(num1, num3).forEach {
-        list.addAll(cacu2(num2, it))
-    }
-    return list
-}
-
-/**
- * 3个数四则运算后的结果情况
- */
-fun cacu4(num1: Pair<Double, String>,
-          num2: Pair<Double, String>,
-          num3: Pair<Double, String>,
-          num4: Pair<Double, String>): List<Pair<Double, String>> {
-    val list = ArrayList<Pair<Double, String>>()
-    cacu3(num1, num2, num3).forEach {
-        list.addAll(cacu2(num4, it))
-    }
-
-    cacu3(num1, num2, num4).forEach {
-        list.addAll(cacu2(num3, it))
-    }
-
-    cacu3(num1, num3, num4).forEach {
-        list.addAll(cacu2(num2, it))
-    }
-
-    cacu3(num2, num3, num4).forEach {
-        list.addAll(cacu2(num1, it))
-    }
-
-    return list
-}
+            if (num1.first != 0.0) {
+                it.add(Pair(num2.first / num1.first, "${num2.second.addPair()} / ${num1.second.addPair()}"))
+            }
+        }
 
 
 /**

@@ -16,7 +16,7 @@ fun main(args: Array<String>) {
 fun infixToSuffix(source: List<String>): Queue<String> {
     val map = mapOf("+" to 1, "-" to 1, "*" to 2, "/" to 2, "(" to 0)
     val stack = Stack<String>()
-    val queue: Queue<String> = LinkedList<String>()
+    val queue: Queue<String> = LinkedList()
     source.forEach {
         if (it in map.keys) {
             val i = map[it]
@@ -28,10 +28,11 @@ fun infixToSuffix(source: List<String>): Queue<String> {
             if (it == ")") {
                 while (true) {
                     val s = stack.pop()
-                    if (s != "(")
+                    if (s != "(") {
                         queue.add(s)
-                    else
+                    } else {
                         break
+                    }
                 }
             } else {
                 queue.add(it)

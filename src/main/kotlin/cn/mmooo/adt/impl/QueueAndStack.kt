@@ -8,11 +8,15 @@ class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyT
     override val size: Int
         get() = this.currentSize
 
-    override fun contains(element: AnyType): Boolean = this.stream().anyMatch { it == element }
+    override fun contains(element: AnyType): Boolean =
+            this.stream()
+                    .anyMatch { it == element }
 
 
     override fun containsAll(elements: Collection<AnyType>): Boolean =
-            elements.parallelStream().allMatch(this::contains)
+            elements
+                    .parallelStream()
+                    .allMatch(this::contains)
 
     override fun peekFirst(): AnyType {
         checkSize()
@@ -41,18 +45,18 @@ class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyT
     }
 
     private var currentSize: Int = 0
-    private var head: Node<AnyType>
-    private var tail: Node<AnyType>
+    private lateinit var head: Node<AnyType>
+    private lateinit var tail: Node<AnyType>
 
     override fun makeEmpty() {
-        head = Node()
-        tail = Node()
-        currentSize = 0
-        head.next = tail
-        tail.pre = head
+        init()
     }
 
     init {
+        this.init()
+    }
+
+    private fun init() {
         head = Node()
         tail = Node()
         currentSize = 0
@@ -104,9 +108,9 @@ class QueueAndStack<AnyType> internal constructor() : Queue<AnyType>, Stack<AnyT
         var pre: Node<T>? = null
         var ele: T? = null
 
-        internal constructor()
+        constructor()
 
-        internal constructor(ele: T) {
+        constructor(ele: T) {
             this.ele = ele
         }
     }

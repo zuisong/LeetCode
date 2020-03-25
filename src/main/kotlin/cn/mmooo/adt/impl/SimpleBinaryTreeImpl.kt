@@ -3,7 +3,7 @@ package cn.mmooo.adt.impl
 import cn.mmooo.adt.BinaryTree
 import cn.mmooo.adt.Queue
 
-fun main(args: Array<String>) {
+fun main() {
     val tree = SimpleBinaryTreeImpl<Int>()
 
     tree.insert(5)
@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
 class SimpleBinaryTreeImpl<E : Comparable<E>> : BinaryTree<E> {
 
     override fun toString(): String {
-      return  "我是一棵二叉树"
+        return "我是一棵二叉树"
     }
 
     private var currentSize = 0
@@ -65,21 +65,22 @@ class SimpleBinaryTreeImpl<E : Comparable<E>> : BinaryTree<E> {
         currentSize = 0
     }
 
-    override fun insert(ele: E) {
-        fun insert(e: E, node: BinaryNode<E>?): BinaryNode<E> {
-            if (node == null) {
-                return BinaryNode(e)
-            }
-            when {
-                e < node.ele -> node.left = insert(e, node.left)
-                e > node.ele -> node.right = insert(e, node.right)
-                else -> {
-                    // 处理已经存在的情况
-                }
-            }
-            return node
+    private fun insert(e: E, node: BinaryNode<E>?): BinaryNode<E> {
+        if (node == null) {
+            return BinaryNode(e)
         }
+        when {
+            e < node.ele -> node.left = insert(e, node.left)
+            e > node.ele -> node.right = insert(e, node.right)
+            else -> {
+                // 处理已经存在的情况
+                TODO("处理已经存在的情况")
+            }
+        }
+        return node
+    }
 
+    override fun insert(ele: E) {
         root = insert(ele, root)
         currentSize++
     }
@@ -139,17 +140,18 @@ class SimpleBinaryTreeImpl<E : Comparable<E>> : BinaryTree<E> {
     }
 
 
-    override operator fun contains(ele: E): Boolean {
-        fun contains(ele: E, node: BinaryNode<E>?): Boolean {
-            if (node == null) {
-                return false
-            }
-            return when {
-                ele > node.ele -> contains(ele, node.right)
-                ele < node.ele -> contains(ele, node.left)
-                else -> true
-            }
+    private fun contains(ele: E, node: BinaryNode<E>?): Boolean {
+        if (node == null) {
+            return false
         }
+        return when {
+            ele > node.ele -> contains(ele, node.right)
+            ele < node.ele -> contains(ele, node.left)
+            else -> true
+        }
+    }
+
+    override operator fun contains(ele: E): Boolean {
         return contains(ele, root)
     }
 
