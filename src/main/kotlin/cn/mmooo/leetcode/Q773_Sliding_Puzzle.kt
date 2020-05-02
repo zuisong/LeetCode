@@ -17,10 +17,10 @@ Given a puzzle board, return the least number of moves required so that the stat
  */
 fun main(args: Array<String>) {
     val board = arrayOf(
-            intArrayOf(1, 2, 3, 4),
-            intArrayOf(5, 6, 7, 8),
-            intArrayOf(9, 10, 11, 12),
-            intArrayOf(15, 13, 14, 0)
+            intArrayOf(2, 3, 4, 8),
+            intArrayOf(1, 5, 7, 12),
+            intArrayOf(6, 11, 15, 0),
+            intArrayOf(9, 13, 10, 14)
     )
     slidingPuzzle(board, target = arrayOf(
             intArrayOf(1, 2, 3, 4),

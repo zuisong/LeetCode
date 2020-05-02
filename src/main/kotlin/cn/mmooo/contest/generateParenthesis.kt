@@ -37,5 +37,6 @@ fun generateParenthesis(n: Int): List<String> {
 }
 
 fun main() {
-    generateParenthesis(10).forEach(::println)
+    println(1)
+    generateParenthesis(4).forEach(::println)
 }

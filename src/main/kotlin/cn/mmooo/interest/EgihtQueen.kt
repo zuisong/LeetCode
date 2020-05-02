@@ -6,10 +6,6 @@ fun main(args: Array<String>) {
     val queenGrid = "Q "
     var result: List<List<String>> = listOf()
 
-
-    println(Test2.a)
-
-
     val array = IntArray(queenNumber)
 
     val saveResult: (IntArray) -> Unit = { res ->
