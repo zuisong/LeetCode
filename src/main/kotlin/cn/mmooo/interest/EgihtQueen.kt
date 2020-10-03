@@ -1,6 +1,8 @@
 package cn.mmooo.interest
 
-fun main(args: Array<String>) {
+import kotlin.math.*
+
+fun main() {
     val queenNumber = 8
     val emptyGrid = "+ "
     val queenGrid = "Q "
@@ -23,7 +25,7 @@ fun main(args: Array<String>) {
     fun solve(arr: IntArray, row: Int) {
         (0 until queenNumber).filter { column ->
             (0 until row).none {
-                Math.abs((arr[it] - column)) ==
+                abs((arr[it] - column)) ==
                         (row - it) || arr[it] == column
             }
         }.forEach { column ->

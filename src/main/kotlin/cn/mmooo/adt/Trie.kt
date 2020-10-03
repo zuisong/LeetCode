@@ -8,7 +8,7 @@ Q208
 注意:
 你可以假设所有的输入都是由小写字母 a-z 构成的。
  */
-class Trie {
+open class Trie {
     private class TrieNode(
             var isWord: Boolean = false,
             var map: HashMap<Char, TrieNode> = HashMap()

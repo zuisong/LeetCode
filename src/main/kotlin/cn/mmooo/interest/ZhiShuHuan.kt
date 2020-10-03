@@ -1,4 +1,6 @@
-import kotlin.system.measureTimeMillis
+package zhishuhuan
+
+import kotlin.system.*
 
 
 fun main(args: Array<String>) {

@@ -11,7 +11,10 @@ fun reverseVowels(s: String): String {
     var i = 0
     var j = array.lastIndex
 
-    fun Char.isVowel(): Boolean = this in "aoeiuv"
+    fun Char.isVowel(): Boolean = this in
+            lazy {
+                "aoeiuv".toCharArray().toHashSet()
+            }.value
 
     while (i < j) {
         while (i < j && !array[i].isVowel()) {

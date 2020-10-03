@@ -1,14 +1,11 @@
-import java.util.concurrent.ForkJoinPool
-import java.util.concurrent.RecursiveTask
-import java.util.concurrent.RecursiveAction as RecursiveAction1
+import java.util.concurrent.*
 
 fun main() {
     val printTask = Action((1..200).toList().toTypedArray())
     val sumTask = SumTask((1..20).toList().toTypedArray())
 
     val pool = ForkJoinPool(10)
-    val res = pool.submit(sumTask).get()
-//    pool.shutdown()
+    val res = pool.submit(sumTask).join()
     println(res)
 }
 
@@ -36,7 +33,7 @@ class Action(
         private val arr: Array<Int>,
         private val start: Int = 0,
         private val end: Int = arr.lastIndex
-) : RecursiveAction1() {
+) : RecursiveAction() {
     override fun compute() {
 
         if (start == end) {

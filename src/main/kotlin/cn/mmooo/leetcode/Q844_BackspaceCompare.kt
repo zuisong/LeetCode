@@ -9,7 +9,7 @@ fun main(args: Array<String>) {
 
 fun backspaceCompare(S: String, T: String): Boolean {
 
-    val toStr = fun(s: String): String {
+    fun toStr(s: String): String {
         var str = s
         val regex = Regex("[a-z]#")
         while (regex.containsMatchIn(str)) {
